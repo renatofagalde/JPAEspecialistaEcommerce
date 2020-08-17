@@ -3,17 +3,14 @@ package com.algaworks.ecommerce.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "estoque")
 @Entity
 @Getter
 @Setter
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Estoque  extends EntidadeBaseInteger{
+public class Estoque extends EntidadeBaseInteger {
 
 //	@EqualsAndHashCode.Include
 //	@Id
@@ -25,12 +22,11 @@ public class Estoque  extends EntidadeBaseInteger{
 	private Integer produtoId;
 */
 
-	private Integer quantidade;
+    private Integer quantidade;
 
-	@OneToOne(optional = false)
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
-
+    @OneToOne(optional = false)
+    @JoinColumn(name = "produto_id",foreignKey = @ForeignKey(name = "fk_estoque_produto_id"))
+    private Produto produto;
 
 
 }

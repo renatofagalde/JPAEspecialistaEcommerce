@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 
-@Table(name = "cliente")
+//@Table(name = "cliente",uniqueConstraints = {@UniqueConstraint(name = "unq_cpf",columnNames = {"cpf"})},indexes = {@Index(name = "idx_nome",columnList = "nome,cpf")})
+@Table(name = "cliente",uniqueConstraints = {@UniqueConstraint(name = "unq_cpf",columnNames = {"cpf"})},indexes = {@Index(name = "idx_nome",columnList = "nome")}) //nome da coluna no banco de dados
 @Entity
 @Getter
 @Setter
@@ -24,6 +25,8 @@ public class Cliente extends EntidadeBaseInteger{
 //    private Integer id;
 
     private String nome;
+
+    private String cpf;
 
     //ordinal usa a posicao
     //string usa o valor

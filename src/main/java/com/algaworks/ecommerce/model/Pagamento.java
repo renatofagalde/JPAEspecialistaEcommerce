@@ -8,9 +8,19 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+//@Table(name = "pagamento") comentado na aula 6.18
 @Table(name = "pagamento")
-public abstract class Pagamento extends EntidadeBaseInteger{
 
+//aula 6.17
+//@DiscriminatorColumn(name = "dtype",discriminatorType = DiscriminatorType.STRING)
+//@DiscriminatorColumn(name = "tipo_pagamento",discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "tipo_pagamento",discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) // trocado na aula 6.19
+//@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Pagamento extends EntidadeBaseInteger {
+
+    @MapsId
     @OneToOne(optional = false) //https://www.algaworks.com/aulas/3233/para-o-que-serve-o-atributo-optional/
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;

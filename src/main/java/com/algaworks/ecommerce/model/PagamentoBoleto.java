@@ -5,12 +5,15 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Table(name = "pagamento_boleto")
+//@Table(name = "pagamento_boleto")
 @Entity
 @Getter
 @Setter
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PagamentoBoleto  extends EntidadeBaseInteger{
+
+//aula 6.17
+@DiscriminatorValue("boleto") //comentado por conta do TABLE_PER_CLASS
+public class PagamentoBoleto  extends Pagamento{
 
 //	@EqualsAndHashCode.Include
 //	@Id
