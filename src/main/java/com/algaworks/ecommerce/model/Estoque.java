@@ -22,6 +22,7 @@ public class Estoque extends EntidadeBaseInteger {
 	private Integer produtoId;
 */
 
+    @Column(columnDefinition = "integer(11) not null")
     private Integer quantidade;
 
     @OneToOne(optional = false)

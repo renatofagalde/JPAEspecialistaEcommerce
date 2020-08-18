@@ -20,9 +20,10 @@ import javax.persistence.*;
 //@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento extends EntidadeBaseInteger {
 
-    @MapsId
+
+    @MapsId // ID da tabela, aula: 6.6
     @OneToOne(optional = false) //https://www.algaworks.com/aulas/3233/para-o-que-serve-o-atributo-optional/
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id",nullable = false,foreignKey = @ForeignKey(name = "fk_pagamento_pedido"))
     private Pedido pedido;
 
     @Enumerated(EnumType.STRING)
