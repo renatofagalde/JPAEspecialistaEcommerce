@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,64 +9,53 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
+@Getter
+@Setter
+@EntityListeners({ GenericoListener.class })
+@Entity
 @Table(name = "produto",
         uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) },
         indexes = { @Index(name = "idx_nome", columnList = "nome") })
-@Entity
-@Getter
-@Setter
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Produto  extends EntidadeBaseInteger{
+public class Produto extends EntidadeBaseInteger {
 
-//	@EqualsAndHashCode.Include
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
+    @Column(name = "data_criacao", updatable = false, nullable = false)
+    private LocalDateTime dataCriacao;
 
-	@Column(name = "data_criacao", updatable = false)
-	private LocalDateTime dataCriacao;
+    @Column(name = "data_ultima_atualizacao", insertable = false)
+    private LocalDateTime dataUltimaAtualizacao;
 
-	@Column(name = "data_ultima_atualizacao", insertable = false)
-	private LocalDateTime dataUltimaAtualizacao;
+    @Column(length = 100, nullable = false)
+    private String nome;
 
-	@Column(length = 100)
-	private String nome;
+    @Lob
+    private String descricao;
 
-	@Column(columnDefinition = "varchar(275) not null default 'descricao'")
-	private String descricao;
-
-	//precision 19 = contando as casas decimais
-	@Column(precision = 19,scale = 2)
-	private BigDecimal preco;
-
-	//dono do relacionamento
-	//https://www.algaworks.com/aulas/3221/conhecendo-os-tipos-de-relacionamentos-entre-entidades/
-	//quem tem o JoinColumn ou JoinTable é o dono do relacionamento
-	//quem tem o mappedBy é o lado fraco da relacao
-
-	//https://www.algaworks.com/aulas/3228/mapeando-relacionamentos-muitos-para-muitos-com-manytomany-e-jointable/
-	@ManyToMany
-	@JoinTable(name = "produto_categoria",
-			   joinColumns = @JoinColumn(name = "produto_id"),
-			   inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private List<Categoria> categorias;
-
-	@OneToOne(mappedBy = "produto")
-	private Estoque estoque;
-
-	@ElementCollection
-    //aula 6.9 mapeando colecoes de tipo básico
-    @CollectionTable(name = "produto_tag",joinColumns = @JoinColumn(name = "produto_id"))
-    @Column(name = "tag") //nome da propriedade que guardará o valor deste atributo
-	private List<String> tags;
-
-
-    @ElementCollection
-    //aula 6.9 mapeando colecoes de objetos
-    @CollectionTable(name = "produto_atributo",joinColumns = @JoinColumn(name = "produto_id"))
-    private List<Atributo> atributos;
+    private BigDecimal preco;
 
     @Lob
     private byte[] foto;
+
+    @ManyToMany
+    @JoinTable(name = "produto_categoria",
+            joinColumns = @JoinColumn(name = "produto_id", nullable = false,
+                    foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id", nullable = false,
+                    foreignKey = @ForeignKey(name = "fk_produto_categoria_categoria")))
+    private List<Categoria> categorias;
+
+    @OneToOne(mappedBy = "produto")
+    private Estoque estoque;
+
+    @ElementCollection
+    @CollectionTable(name = "produto_tag",
+            joinColumns = @JoinColumn(name = "produto_id", nullable = false,
+                    foreignKey = @ForeignKey(name = "fk_produto_tag_produto")))
+    @Column(name = "tag", length = 50, nullable = false)
+    private List<String> tags;
+
+    @ElementCollection
+    @CollectionTable(name = "produto_atributo",
+            joinColumns = @JoinColumn(name = "produto_id", nullable = false,
+                    foreignKey = @ForeignKey(name = "fk_produto_atributo_produto")))
+    private List<Atributo> atributos;
 }

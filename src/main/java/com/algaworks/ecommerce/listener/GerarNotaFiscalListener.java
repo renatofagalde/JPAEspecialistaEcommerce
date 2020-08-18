@@ -8,15 +8,13 @@ import javax.persistence.PreUpdate;
 
 public class GerarNotaFiscalListener {
 
-	private NotaFiscalService notaFiscalService = new NotaFiscalService();
+    private NotaFiscalService notaFiscalService = new NotaFiscalService();
 
-
-	//https://www.algaworks.com/aulas/3241/listeners-para-eventos-do-ciclo-de-vida/
-	@PrePersist
-	@PreUpdate
-	public void gerar(Pedido pedido) {
-		if (pedido.isPago() && pedido.getNotaFiscal() == null) {
-			notaFiscalService.gerar(pedido);
-		}
-	}
+    @PrePersist
+    @PreUpdate
+    public void gerar(Pedido pedido) {
+        if (pedido.isPago() && pedido.getNotaFiscal() == null) {
+            notaFiscalService.gerar(pedido);
+        }
+    }
 }

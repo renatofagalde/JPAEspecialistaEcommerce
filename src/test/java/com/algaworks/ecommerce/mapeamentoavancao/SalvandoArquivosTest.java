@@ -7,10 +7,6 @@ import com.algaworks.ecommerce.model.Produto;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 
 public class SalvandoArquivosTest extends EntityManagerTest {
@@ -31,47 +27,37 @@ public class SalvandoArquivosTest extends EntityManagerTest {
 
     @Test
     public void salvarXmlNota() {
-        Pedido pedido = this.entityManager.find(Pedido.class, 1);
+        Pedido pedido = entityManager.find(Pedido.class, 1);
 
         NotaFiscal notaFiscal = new NotaFiscal();
         notaFiscal.setPedido(pedido);
         notaFiscal.setDataEmissao(new Date());
-
         notaFiscal.setXml(carregarNotaFiscal());
 
+        entityManager.getTransaction().begin();
+        entityManager.persist(notaFiscal);
+        entityManager.getTransaction().commit();
 
-        this.entityManager.getTransaction().begin();
-        this.entityManager.persist(notaFiscal);
-        this.entityManager.getTransaction().commit();
+        entityManager.clear();
 
-        this.entityManager.clear();
+        NotaFiscal notaFiscalVerificacao = entityManager.find(NotaFiscal.class, notaFiscal.getId());
+        Assert.assertNotNull(notaFiscalVerificacao.getXml());
+        Assert.assertTrue(notaFiscalVerificacao.getXml().length > 0);
 
-        NotaFiscal verificacao = this.entityManager.find(NotaFiscal.class, 1);
-
-        Assert.assertNotNull(verificacao.getXml());
-        Assert.assertTrue(verificacao.getXml().length > 0);
-
-
+        /*
         try {
             OutputStream out = new FileOutputStream(
-                    Files.createFile(Paths.get(System.getProperty("user.home") + "/Desktop/xml1.xml")).toFile());
-            out.write(verificacao.getXml());
+                    Files.createFile(Paths.get(
+                            System.getProperty("user.home") + "/xml.xml")).toFile());
+            out.write(notaFiscalVerificacao.getXml());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        */
     }
 
-    //6.12
-//    private static byte[] carregarNotaFiscal() {
-//        try {
-//            return SalvandoArquivosTest.class.getResourceAsStream("/nota-fiscal.xml").readAllBytes();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     private static byte[] carregarFoto() {
-        return carregarArquivo("/eu.png");
+        return carregarArquivo("/kindle.jpg");
     }
 
     private static byte[] carregarNotaFiscal() {
@@ -79,12 +65,14 @@ public class SalvandoArquivosTest extends EntityManagerTest {
     }
 
     private static byte[] carregarArquivo(String nome) {
-            return  null;
+
+        return null;
+
 //        try {
 //            return SalvandoArquivosTest.class.getResourceAsStream(nome).readAllBytes();
+//
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
     }
-
 }

@@ -15,8 +15,6 @@ public class MapsIdTest extends EntityManagerTest {
         Pedido pedido = entityManager.find(Pedido.class, 1);
 
         NotaFiscal notaFiscal = new NotaFiscal();
-        //não é necessário por que está sendo usado o @MapsID aula 6.6
-        //notaFiscal.setId(pedido.getId());
         notaFiscal.setPedido(pedido);
         notaFiscal.setDataEmissao(new Date());
         notaFiscal.setXml("<xml/>".getBytes());

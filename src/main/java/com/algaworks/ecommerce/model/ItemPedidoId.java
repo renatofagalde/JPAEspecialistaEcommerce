@@ -14,13 +14,11 @@ import java.io.Serializable;
 @Embeddable
 public class ItemPedidoId implements Serializable {
 
-	@EqualsAndHashCode.Include
-//    @Id
+    @EqualsAndHashCode.Include
     @Column(name = "pedido_id")
-	private Integer pedidoId;
+    private Integer pedidoId;
 
-	@EqualsAndHashCode.Include
-//    @Id
+    @EqualsAndHashCode.Include
     @Column(name = "produto_id")
-	private Integer produtoId;
+    private Integer produtoId;
 }

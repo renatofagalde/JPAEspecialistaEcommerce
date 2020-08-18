@@ -10,28 +10,23 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Table(name = "pedido")
-@Entity
 @Getter
 @Setter
-@EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
+@Entity
+@Table(name = "pedido")
 public class Pedido extends EntidadeBaseInteger {
 
-//	@EqualsAndHashCode.Include
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "cliente_id", nullable = false,foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
+    @JoinColumn(name = "cliente_id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
-    @Column(name = "data_criacao", updatable = false)
-    private LocalDateTime dataCriacao;
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> itens;
 
-    @Column(name = "data_pedido")
-    private LocalDateTime dataPedido;
+    @Column(name = "data_criacao", updatable = false, nullable = false)
+    private LocalDateTime dataCriacao;
 
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
@@ -42,33 +37,24 @@ public class Pedido extends EntidadeBaseInteger {
     @OneToOne(mappedBy = "pedido")
     private NotaFiscal notaFiscal;
 
-    //precision 19 = contando as casas decimais
-    @Column(precision = 19, scale = 2)
+    @Column(nullable = false)
     private BigDecimal total;
 
-// alterado para  a classe abstrata na aula 6.16
-    //https://www.algaworks.com/aulas/3229/mapeamento-relacionamentos-um-para-um-com-onetoone/
-    //metadado para buscar os dados da relação
-//	@OneToOne(mappedBy = "pedido")
-//	private PagamentoCartao pagamentoCartao;
+    @Column(length = 30, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
 
     @OneToOne(mappedBy = "pedido")
     private Pagamento pagamento;
 
-    @Enumerated(EnumType.STRING)
-    private StatusPedido status;
-
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
-
-    @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> itens;
 
     public boolean isPago() {
         return StatusPedido.PAGO.equals(status);
     }
 
-    //    @PrePersist
+//    @PrePersist
 //    @PreUpdate
     public void calcularTotal() {
         if (itens != null) {

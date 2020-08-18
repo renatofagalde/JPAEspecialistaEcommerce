@@ -7,7 +7,6 @@ public class DDLTest extends EntityManagerTest {
 
     @Test
     public void gerarDDL() {
-
+        // Teste vazio... Somente para exibir DDL.
     }
-
 }

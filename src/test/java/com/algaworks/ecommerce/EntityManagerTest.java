@@ -1,9 +1,7 @@
 package com.algaworks.ecommerce;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import com.algaworks.ecommerce.model.Produto;
+import org.junit.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,34 +9,28 @@ import javax.persistence.Persistence;
 
 public class EntityManagerTest {
 
-	protected static EntityManagerFactory entityManagerFactory;
+    protected static EntityManagerFactory entityManagerFactory;
 
-	protected EntityManager entityManager;
+    protected EntityManager entityManager;
 
-	//antes de tudo
-	@BeforeClass
-	public static void setUpBeforeClass() {
-		entityManagerFactory = Persistence.createEntityManagerFactory("ecommerce-persistentunit");
-	}
+    @BeforeClass
+    public static void setUpBeforeClass() {
+        entityManagerFactory = Persistence
+                .createEntityManagerFactory("Ecommerce-PU");
+    }
 
-	//depois de tudo
-	@AfterClass
-	public static void tearDownAfterClass() {
-		entityManagerFactory.close();
-	}
+    @AfterClass
+    public static void tearDownAfterClass() {
+        entityManagerFactory.close();
+    }
 
-	//será executado para cada teste
-	@Before
-	public void setUp() {
-		entityManager = entityManagerFactory.createEntityManager();
-	}
+    @Before
+    public void setUp() {
+        entityManager = entityManagerFactory.createEntityManager();
+    }
 
-
-	@After
-	public void tearDown() {
-		entityManager.close();
-	}
-
-
-
+    @After
+    public void tearDown() {
+        entityManager.close();
+    }
 }

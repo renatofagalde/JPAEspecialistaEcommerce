@@ -7,27 +7,22 @@ import org.junit.Test;
 
 public class ConsultandoRegistrosTest extends EntityManagerTest {
 
-	@Test
-	public void buscarPorIdentificador() {
-		Produto produto = entityManager.find(Produto.class, 1);
+    @Test
+    public void busarPorIdentificador() {
+        Produto produto = entityManager.find(Produto.class, 1);
+//        Produto produto = entityManager.getReference(Produto.class, 1);
 
+        Assert.assertNotNull(produto);
+        Assert.assertEquals("Kindle", produto.getNome());
+    }
 
-		//getReference só executa a query quando alguma propriedade for chamada
-		//Produto produto = entityManager.getReference(Produto.class, 1);
+    @Test
+    public void atualizarAReferencia() {
+        Produto produto = entityManager.find(Produto.class, 1);
+        produto.setNome("Microfone Samson");
 
+        entityManager.refresh(produto);
 
-		Assert.assertNotNull("Objeto localizado", produto);
-		Assert.assertEquals("Kindle", produto.getNome());
-	}
-
-	@Test
-	public void atualizarReferencia() {
-		Produto produto = this.entityManager.find(Produto.class, 1);
-		produto.setNome("Microfone");
-
-		entityManager.refresh(produto);
-
-		Assert.assertEquals("Kindle", produto.getNome());
-	}
-
+        Assert.assertEquals("Kindle", produto.getNome());
+    }
 }

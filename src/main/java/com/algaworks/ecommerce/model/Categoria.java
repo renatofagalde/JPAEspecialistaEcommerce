@@ -6,57 +6,24 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Table(name = "categoria",
-        uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) })
-@Entity
 @Getter
 @Setter
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Categoria  extends EntidadeBaseInteger{
+@Entity
+@Table(name = "categoria",
+        uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) })
+public class Categoria extends EntidadeBaseInteger {
 
-//	@EqualsAndHashCode.Include
-//	@Id
+    @Column(length = 100, nullable = false)
+    private String nome;
 
-	//sequence aula 3.7
+    @ManyToOne
+    @JoinColumn(name = "categoria_pai_id",
+            foreignKey = @ForeignKey(name = "fk_categoria_categoriapai"))
+    private Categoria categoriaPai;
 
-	//sequence aula 3.8
-	//https://www.algaworks.com/aulas/3217/configurando-a-geracao-de-identificador-com-sequencegenerator/
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequencia")
-//	@SequenceGenerator(name = "sequencia",sequenceName = "sequencia_chave_primaria")
+    @OneToMany(mappedBy = "categoriaPai")
+    private List<Categoria> categorias;
 
-
-	//table 3.9
-	//https://www.algaworks.com/aulas/3218/configurando-a-geracao-de-identificador-com-tablegenerator/
-/*
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "tabela")
-	@TableGenerator(name = "tabela",table = "hibernate_sequences",
-					pkColumnName = "sequence_name",
-					pkColumnValue = "categoria",
-					valueColumnName = "next_val",
-					initialValue = 100,
-					allocationSize = 10)
-*/
-
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
-
-	private String nome;
-
-/*
-	@Column(name = "categoria_pai_id")
-	private Integer categoriaPaiId;
-*/
-
-	@ManyToOne
-	@JoinColumn(name = "categoria_pai_id")
-	private Categoria categoriaPai;
-
-
-	@OneToMany(mappedBy = "categoriaPai")
-	private List<Categoria> categorias;
-
-	@ManyToMany(mappedBy = "categorias")
-	private List<Produto> produtos;
-
-
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos;
 }

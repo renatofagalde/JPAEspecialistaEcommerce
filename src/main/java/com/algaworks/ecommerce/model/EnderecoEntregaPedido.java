@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Getter
@@ -10,17 +11,24 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EnderecoEntregaPedido {
 
-	private String cep;
+    @Column(length = 9)
+    private String cep;
 
-	private String logradouro;
+    @Column(length = 100)
+    private String logradouro;
 
-	private String numero;
+    @Column(length = 10)
+    private String numero;
 
-	private String complemento;
+    @Column(length = 50)
+    private String complemento;
 
-	private String bairro;
+    @Column(length = 50)
+    private String bairro;
 
-	private String cidade;
+    @Column(length = 50)
+    private String cidade;
 
-	private String estado;
+    @Column(length = 2)
+    private String estado;
 }

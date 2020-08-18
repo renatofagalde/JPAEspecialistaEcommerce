@@ -7,22 +7,18 @@ import org.junit.Test;
 
 public class EstrategiaChavePrimariaTest extends EntityManagerTest {
 
-	@Test
-	public void testarEstrategiaAuto() {
+    @Test
+    public void testarEstrategiaChave() {
+        Categoria categoria = new Categoria();
+        categoria.setNome("Natação");
 
-		final Categoria categoria = new Categoria();
-		categoria.setNome("Eletrônicos");
+        entityManager.getTransaction().begin();
+        entityManager.persist(categoria);
+        entityManager.getTransaction().commit();
 
+        entityManager.clear();
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(categoria);
-		entityManager.getTransaction().commit();
-
-
-		entityManager.clear();
-
-		final Categoria confirmacao = this.entityManager.find(Categoria.class, categoria.getId());
-
-		Assert.assertNotNull(confirmacao);
-	}
+        Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
+        Assert.assertNotNull(categoriaVerificacao);
+    }
 }
