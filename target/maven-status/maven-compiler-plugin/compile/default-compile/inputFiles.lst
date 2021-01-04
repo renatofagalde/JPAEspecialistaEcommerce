@@ -1,6 +1,8 @@
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/Pedido.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/EntidadeBaseInteger.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/listener/GerarNotaFiscalListener.java
+/Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/util/ExportarDDL.java
+/Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/dto/ProdutoDTO.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/PagamentoBoleto.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/Atributo.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/ItemPedido.java
@@ -13,9 +15,10 @@
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/Produto.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/Pagamento.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/service/NotaFiscalService.java
-/Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/util/IniciarUnidadePersistencia.java
+/Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/util/IniciarUnidadeDePersistencia.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/SexoCliente.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/Categoria.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/NotaFiscal.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/model/StatusPedido.java
+/Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/util/ExecutarDDL.java
 /Users/renatofagalde/Documents/programacao/desenvolvimento/workspace_intellij/algaworksecommerce/src/main/java/com/algaworks/ecommerce/listener/GenericoListener.java

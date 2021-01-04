@@ -12,17 +12,18 @@ import java.util.List;
 
 @Getter
 @Setter
-@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
+@EntityListeners({GerarNotaFiscalListener.class, GenericoListener.class})
 @Entity
 @Table(name = "pedido")
 public class Pedido extends EntidadeBaseInteger {
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE},orphanRemoval = true,fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST})
     private List<ItemPedido> itens;
 
     @Column(name = "data_criacao", updatable = false, nullable = false)
@@ -34,7 +35,7 @@ public class Pedido extends EntidadeBaseInteger {
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
-    @OneToOne(mappedBy = "pedido")
+    @OneToOne(mappedBy = "pedido",fetch = FetchType.LAZY)
     private NotaFiscal notaFiscal;
 
     @Column(nullable = false)
@@ -44,7 +45,7 @@ public class Pedido extends EntidadeBaseInteger {
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-    @OneToOne(mappedBy = "pedido")
+    @OneToOne(mappedBy = "pedido",fetch = FetchType.LAZY)
     private Pagamento pagamento;
 
     @Embedded
@@ -54,12 +55,15 @@ public class Pedido extends EntidadeBaseInteger {
         return StatusPedido.PAGO.equals(status);
     }
 
-//    @PrePersist
+    //    @PrePersist
 //    @PreUpdate
     public void calcularTotal() {
         if (itens != null) {
-            total = itens.stream().map(ItemPedido::getPrecoProduto)
+            total = itens.stream().map(
+                    i -> new BigDecimal(i.getQuantidade()).multiply(i.getPrecoProduto()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } else {
+            total = BigDecimal.ZERO;
         }
     }
 

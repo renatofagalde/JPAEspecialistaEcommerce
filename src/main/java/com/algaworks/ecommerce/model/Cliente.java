@@ -48,7 +48,7 @@ public class Cliente extends EntidadeBaseInteger {
 
     @PostLoad
     public void configurarPrimeiroNome(){
-        if (nome != null && nome.length()>1) {
+        if (nome != null ) {
             int index = nome.indexOf(" ");
             if (index > -1) {
                 primeiroNome = nome.substring(0, index);

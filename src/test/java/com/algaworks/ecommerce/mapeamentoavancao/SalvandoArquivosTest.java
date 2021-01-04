@@ -65,14 +65,13 @@ public class SalvandoArquivosTest extends EntityManagerTest {
     }
 
     private static byte[] carregarArquivo(String nome) {
-
         return null;
-
-//        try {
-//            return SalvandoArquivosTest.class.getResourceAsStream(nome).readAllBytes();
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+/*
+        try {
+            return SalvandoArquivosTest.class.getResourceAsStream(nome).readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+*/
     }
 }
